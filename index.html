@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/instascan.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="css/theme.css" type="text/css"> </head>
 
@@ -32,22 +32,34 @@
             document.querySelector("[name='curso']").value = lista[2];
             document.querySelector("[name='cpf']").value = lista[3];
             document.querySelector("[name='email']").value = lista[4];
-
+            $.ajax({
+                type: "POST",
+                url: 'cadastrar.php',
+                data: { ra: lista[1] },
+                success: function(data) {
+                    document.querySelector("[name='email']").value = data.email;
+                    console.log(data);
+                },
+                error: function(error) {
+                    document.querySelector("[name='nome']").value = 'Nao encontrado';
+                    console.log('error', error);
+                },
+                complete: function(data) {
+                    console.log('complete');
+                },
+                dataType: 'json'
+            });
             var time = new Date().getTime();
             $(document.body).bind("mousemove keypress", function(e) {
                 time = new Date().getTime();
             });
 
             function refresh() {
-                if (new Date().getTime() - time >= 3000)
-                    window.location.reload(true);
-                else
-                    setTimeout(refresh, 3000);
+                window.location.reload(true);
             }
 
-            setTimeout(refresh, 3000);
-
-            console.log(lista);
+            //setTimeout(refresh, 3000);
+            //console.log(lista);
             window.open(scanner.scanner, "_top");
 
         });
@@ -146,7 +158,6 @@
         </div>
     </div>
     <video id="preview" class="man"></video>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>

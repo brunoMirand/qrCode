@@ -48,11 +48,12 @@
                 // },
                 statusCode: {
                     404: (error) => {
-                        document.querySelector("[name='nome']").value = 'Nao encontrado';
-                        document.querySelector("[name='ra']").value = 'Não encontrado';
-                        document.querySelector("[name='curso']").value = 'Nao encontrado';
-                        document.querySelector("[name='cpf']").value = 'Nao encontrado';
-                        document.querySelector("[name='email']").value = 'Nao encontrado';
+                        document.querySelector("[name='nome']").value = 'NÃO ENCONTRADO';
+                        document.querySelector("[name='ra']").value = 'NÃO ENCONTRADO';
+                        document.querySelector("[name='curso']").value = 'NÃO ENCONTRADO';
+                        document.querySelector("[name='cpf']").value = 'NÃO ENCONTRADO';
+                        document.querySelector("[name='email']").value = 'NÃO ENCONTRADO';
+                        alert("ALUNO NÃO ENCONTRADO");
                         console.log('error', error);
                     }
                 },
@@ -73,7 +74,7 @@
             function refresh() {
                 window.location.reload(true);
             }
-            setTimeout(refresh, 5000);
+            //setTimeout(refresh, 5000);
             console.log(lista);
             window.open(scanner.scanner, "_top");
         });

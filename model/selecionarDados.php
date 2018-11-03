@@ -1,5 +1,6 @@
 <?php
 $conexao = mysqli_connect("localhost", "bruno", "", "evasao");
+
 function carregarRA($conexao)
 {
     $RAs = array();
@@ -10,5 +11,12 @@ function carregarRA($conexao)
         $RAs[] = $RA;
     }
     return $RAs;
+}
+
+function inserirFrenquencia($conexao, $RA)
+{
+    $query = "INSERT INTO frequencia(RA)VALUES('{$RA}')";
+    return mysqli_query($conexao, $query);
+
 }
 ?>

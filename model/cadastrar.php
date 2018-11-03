@@ -6,19 +6,23 @@ $RA = carregarRA($conexao);
 
 foreach ($RA as $RAs) {
     if (in_array($validaRA, $RAs)) {
-        echo " TEM\n";
+        if (inserirFrenquencia($conexao, $validaRA)) {
+            echo json_encode(['cadastrou' => true]);
+        } else {
+            echo json_encode(['cadastrou' => false]);
+        }
         $response = [
-            'ra' => '1234567889',
+            'ra' => $validaRA,
         ];
         echo json_encode($response);
         http_response_code(200);
         die;
     }
 }
-    echo " NÃO TEM\n";
-    print $validaRA;
+    echo json_encode(["NAO CADASTROU" => '404']);
+    echo json_encode(["RA" => $validaRA]);
     $responseError = [
-        'ra' => 'não existe',
+        'ra' => '404',
     ];
     echo json_encode($responseError);
     http_response_code(404);

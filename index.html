@@ -30,7 +30,7 @@
             document.querySelector("[name='email']").value = lista[4];
             $.ajax({
                 type: "POST",
-                data: { ra: lista[1] },
+                data: { id: lista[5] },
                 url: 'model/cadastrar.php',
                 statusCode: {
                     200: (data) => {
@@ -74,7 +74,7 @@
             function refresh() {
                 window.location.reload(true);
             }
-            //setTimeout(refresh, 5000);
+            setTimeout(refresh, 2000);
             console.log(lista);
             window.open(scanner.scanner, "_top");
         });

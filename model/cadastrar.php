@@ -1,28 +1,35 @@
 <?php
 require_once('selecionarDados.php');
 
-$validaRA = $_POST['ra'];
-$RA = carregarRA($conexao);
+if (empty($_POST['id']))
+{
+    $id = NULL;
+} else {
+    $id = $_POST['id'];
+}
+$dados = carregarDados($conexao);
 
-foreach ($RA as $RAs) {
-    if (in_array($validaRA, $RAs)) {
-        if (inserirFrenquencia($conexao, $validaRA)) {
+foreach ($dados as $ids) {
+    if (in_array($id, $ids)) {
+        $RA = $ids['RA'];
+        if (inserirFrenquencia($conexao, $RA, $id)) {
             echo json_encode(['cadastrou' => true]);
         } else {
             echo json_encode(['cadastrou' => false]);
         }
         $response = [
-            'ra' => $validaRA,
+            'id' => $id,
+            'ra' => $RA,
         ];
         echo json_encode($response);
         http_response_code(200);
         die;
     }
 }
-    echo json_encode(["NAO CADASTROU" => '404']);
-    echo json_encode(["RA" => $validaRA]);
     $responseError = [
-        'ra' => '404',
+    'ra' => '404',
+    'cadastrou' => false,
+    'id' => $id,
     ];
     echo json_encode($responseError);
     http_response_code(404);

@@ -14,12 +14,11 @@ function carregarDados($conexao)
     return $RAs;
 }
 
-function carregarData($conexao)
+function carregarData($conexao, $id)
 {
-    //$id = $_POST['id'];
     $datas = array();
-    $query = "SELECT nome, F.RA, status, data_entrada AS saida FROM alunos AS A LEFT JOIN frequencia AS F ON A.RA = F.RA
-                INNER JOIN matricula AS M ON A.matricula_id = M.id WHERE F.RA = '100000002'";
+    $query = "SELECT data_entrada AS saida FROM alunos AS A LEFT JOIN frequencia AS F ON A.RA = F.RA
+                INNER JOIN matricula AS M ON A.matricula_id = M.id WHERE A.id = '{$id}' ORDER BY saida ASC";
     $resultado = mysqli_query($conexao, $query);
     while ($data = mysqli_fetch_assoc($resultado))
     {

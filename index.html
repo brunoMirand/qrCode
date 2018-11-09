@@ -23,29 +23,31 @@
             var content = content;
             var lista = content.split(",");
 
-            document.querySelector("[name='nome']").value = lista[0];
-            document.querySelector("[name='ra']").value = lista[1];
-            document.querySelector("[name='curso']").value = lista[2];
-            document.querySelector("[name='cpf']").value = lista[3];
-            document.querySelector("[name='email']").value = lista[4];
             $.ajax({
                 type: "POST",
                 data: { id: lista[5] },
                 url: 'model/cadastrar.php',
-                statusCode: {
-                    200: (data) => {
-                        alert("top");
-                        //document.querySelector("[name='nome']").value = lista[0];
-                        //document.querySelector("[name='ra']").value = data.ra;
-                        //document.querySelector("[name='curso']").value = lista[2];
-                        //document.querySelector("[name='cpf']").value = lista[3];
-                        //document.querySelector("[name='email']").value = lista[4];
-                    }
+                success: function(data) {
+                    document.querySelector("[name='nome']").value = lista[0];
+                    document.querySelector("[name='ra']").value = lista[1];
+                    document.querySelector("[name='curso']").value = lista[2];
+                    document.querySelector("[name='cpf']").value = lista[3];
+                    document.querySelector("[name='email']").value = lista[4];
+                    document.querySelector("[name='status']").value = data.status;
+
+                    let frequenciaEntrada = data.dataEntrada;
+                    let isAnoMesDiaEntrada = frequenciaEntrada.split(' ');
+                    let dataAnoMesDiaEntrada = isAnoMesDiaEntrada[0].split('-');
+                    let dataEntrada = isAnoMesDiaEntrada[1];
+
+                    let frequenciaSaida = data.dataSaida;
+                    let isAnoMesDiaSaida = frequenciaSaida.split(' ');
+                    let dataSaida = isAnoMesDiaSaida[1];
+
+                    $("#dia").html(dataAnoMesDiaEntrada[2]);
+                    $("#dataEntrada").html(dataEntrada);
+                    $("#dataSaida").html(dataSaida);
                 },
-                // success: async function(data) {
-                //     document.querySelector("[name='ra']").value = data.ra,
-                //     console.log(data);
-                // },
                 statusCode: {
                     404: (error) => {
                         document.querySelector("[name='nome']").value = 'NÃO ENCONTRADO';
@@ -74,7 +76,7 @@
             function refresh() {
                 window.location.reload(true);
             }
-            setTimeout(refresh, 2000);
+            //setTimeout(refresh, 2000);
             console.log(lista);
             window.open(scanner.scanner, "_top");
         });
@@ -123,7 +125,7 @@
                         <br>
                         <input name="email" class="form-control" type="text" placeholder="Email:">
                         <br>
-                        <input name="matricula" class="form-control" type="text" placeholder="Situação da Matrícula:">
+                        <input name="status" class="form-control" type="text" placeholder="Situação da Matrícula:">
                         <br>
                         <input class="form-control is-valid" type="text" placeholder="First name" id="validationServer01" required="" value="Acesso Liberado"> </div>
                 </form>
@@ -139,30 +141,12 @@
                     </thead>
                     <tbody>
                         <tr class="bg-info">
-                            <th scope="row">15</th>
+                            <th id="dia" scope="row"></th>
                             <td>
-                                <center>08:29</center>
+                                <em id="dataEntrada"></em>
                             </td>
                             <td>
-                                <center>11:45</center>
-                            </td>
-                        </tr>
-                        <tr class="bg-info">
-                            <th scope="row">16</th>
-                            <td>
-                                <center>08:00</center>
-                            </td>
-                            <td>
-                                <center>10:35</center>
-                            </td>
-                        </tr>
-                        <tr class="bg-info">
-                            <th scope="row">17</th>
-                            <td>
-                                <center>09:50</center>
-                            </td>
-                            <td>
-                                <center>11:20</center>
+                                <em id="dataSaida"></em>
                             </td>
                         </tr>
                     </tbody>

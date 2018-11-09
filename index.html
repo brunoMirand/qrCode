@@ -44,9 +44,15 @@
                     let isAnoMesDiaSaida = frequenciaSaida.split(' ');
                     let dataSaida = isAnoMesDiaSaida[1];
 
+                    let imagem = data.imagem;
+
                     $("#dia").html(dataAnoMesDiaEntrada[2]);
                     $("#dataEntrada").html(dataEntrada);
                     $("#dataSaida").html(dataSaida);
+                    $(document).ready(() => {
+                        $('#imagem').attr('src', imagem);
+                    });
+
                 },
                 statusCode: {
                     404: (error) => {
@@ -110,7 +116,7 @@
         </div>
     </nav>
     <div class="py-5">
-        <img width="400" class="d-block rounded-circle img-fluid float-left m-4 p-1" src="img/profe.png"> </div>
+        <img width="400" id="imagem" class="d-block rounded-circle img-fluid float-left m-4 p-1"> </div>
         <div class="row">
             <div class="col-md-6 p-3">
                 <form action="" method="post">

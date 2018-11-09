@@ -8,33 +8,34 @@ if (empty($_POST['id']))
     $id = $_POST['id'];
 }
 $dados = carregarDados($conexao);
-$data = carregarData($conexao);
 
 foreach ($dados as $ids) {
     if (in_array($id, $ids)) {
         $RA = $ids['RA'];
         $status = $ids['status'];
         $dataEntrada = $ids['data'];
-        // if (inserirFrenquencia($conexao, $RA, $id)) {
-        //     echo json_encode(['cadastrou' => true]);
-        // } else {
-        //     echo json_encode(['cadastrou' => false]);
-        // }
+        if (inserirFrenquencia($conexao, $RA, $id)) {
+            $data = carregarData($conexao, $id);
+            foreach ($data as $datas) {
+                $dataSaida = $datas['saida'];
+            }
+            $response = [
+                'id' => $id,
+                'ra' => $RA,
+                'status' => $status,
+                'dataEntrada' => $dataEntrada,
+                'dataSaida' => $dataSaida,
+                'imagem' => 'img/bruno.png',
+            ];
+            echo json_encode($response);
+            http_response_code(200);
+            //die;
 
-        foreach ($data as $datas) {
-            $dataSaida = $datas['saida'];
+        } else {
+            echo json_encode(['cadastrou' => false]);
         }
-        $response = [
-            'id' => $id,
-            'ra' => $RA,
-            'status' => $status,
-            'dataEntrada' => $dataEntrada,
-            'dataSaida' => $dataSaida,
-            'imagem' => 'img/bruno.png',
-        ];
-        echo json_encode($response);
-        http_response_code(200);
         die;
+
     }
 }
     $responseError = [

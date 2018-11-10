@@ -13,28 +13,42 @@ foreach ($dados as $ids) {
     if (in_array($id, $ids)) {
         $RA = $ids['RA'];
         $status = $ids['status'];
-        $dataEntrada = $ids['data'];
+        $ano = $ids['ano'];
+        $mes = $ids['mes'];
+        $dia = $ids['dia'];
+        $horario = $ids['horario'];
         if (inserirFrenquencia($conexao, $RA, $id)) {
             $data = carregarData($conexao, $id);
             foreach ($data as $datas) {
-                $dataSaida = $datas['saida'];
+                $anoEntrada = $datas['anoEntrada'];
+                $mesEntrada = $datas['mesEntrada'];
+                $diaEntrada = $datas['diaEntrada'];
+                $horarioEntrada = $datas['horarioEntrada'];
             }
             $response = [
                 'id' => $id,
                 'ra' => $RA,
                 'status' => $status,
-                'dataEntrada' => $dataEntrada,
-                'dataSaida' => $dataSaida,
+                'dataAnterior' => [
+                    'ano' => $ano,
+                    'mes' => $mes,
+                    'dia' => $dia,
+                    'horario' => $horario,
+                ],
+                'dataEntrada' => [
+                    'ano' => $anoEntrada,
+                    'mes' => $mesEntrada,
+                    'dia' => $diaEntrada,
+                    'horario' => $horarioEntrada,
+                ],
                 'imagem' => 'img/bruno.png',
             ];
             echo json_encode($response);
             http_response_code(200);
-            //die;
-
+            die;
         } else {
-            echo json_encode(['cadastrou' => false]);
+             echo json_encode(['cadastrou' => false]);
         }
-        die;
 
     }
 }

@@ -35,44 +35,49 @@
                     document.querySelector("[name='email']").value = lista[4];
                     document.querySelector("[name='status']").value = data.status;
 
-                    let frequenciaEntrada = data.dataEntrada;
-                    let isAnoMesDiaEntrada = frequenciaEntrada.split(' ');
-                    let dataAnoMesDiaEntrada = isAnoMesDiaEntrada[0].split('-');
-                    let dataEntrada = isAnoMesDiaEntrada[1];
+                    // let frequenciaEntrada = data.dataEntrada;
+                    // let isAnoMesDiaEntrada = frequenciaEntrada.split(' ');
+                    // let dataAnoMesDiaEntrada = isAnoMesDiaEntrada[0].split('-');
+                    // let dataEntrada = isAnoMesDiaEntrada[1];
 
-                    let frequenciaSaida = data.dataSaida;
-                    let isAnoMesDiaSaida = frequenciaSaida.split(' ');
-                    let dataSaida = isAnoMesDiaSaida[1];
+                    // let frequenciaSaida = data.dataSaida;
+                    // let isAnoMesDiaSaida = frequenciaSaida.split(' ');
+                    // let dataSaida = isAnoMesDiaSaida[1];
 
+                    let dia = data.dataAnterior.dia;
+                    let horarioAnteriro = data.dataAnterior.horario;
+                    let horarioEntrada = data.dataEntrada.horario;
                     let imagem = data.imagem;
 
-                    $("#dia").html(dataAnoMesDiaEntrada[2]);
-                    $("#dataEntrada").html(dataEntrada);
-                    $("#dataSaida").html(dataSaida);
+                    $("#dia").html(dia);
+                    $("#dataAnterior").html(horarioAnteriro);
+                    $("#dataEntrada").html(horarioEntrada);
                     $(document).ready(() => {
                         $('#imagem').attr('src', imagem);
                     });
+                    $("#acesso").html("ACESSO LIBERADO");
+                    $("#acesso").css('background-color', 'green');
+                    $("#acesso").css('border-color', 'green');
 
                 },
                 statusCode: {
                     404: (error) => {
+                        alert("ALUNO NÃO ENCONTRADO");
                         document.querySelector("[name='nome']").value = 'NÃO ENCONTRADO';
                         document.querySelector("[name='ra']").value = 'NÃO ENCONTRADO';
                         document.querySelector("[name='curso']").value = 'NÃO ENCONTRADO';
                         document.querySelector("[name='cpf']").value = 'NÃO ENCONTRADO';
                         document.querySelector("[name='email']").value = 'NÃO ENCONTRADO';
-                        alert("ALUNO NÃO ENCONTRADO");
+                        document.querySelector("[name='status']").value = 'NÃO ENCONTRADO';
+                        $(document).ready(() => {
+                            $('#imagem').attr('src', 'img/notfound.png');
+                        });
+                        $("#acesso").html("ACESSO NEGADO");
+                        $("#acesso").css('background-color', 'red');
+                        $("#acesso").css('border-color', 'red');
                         console.log('error', error);
                     }
                 },
-                // error: async function(error) {
-                //     document.querySelector("[name='nome']").value = await 'Nao encontrado';
-                //     document.querySelector("[name='ra']").value = await 'não';
-                //     document.querySelector("[name='curso']").value = await 'Nao encontrado';
-                //     document.querySelector("[name='cpf']").value = await 'Nao encontrado';
-                //     document.querySelector("[name='email']").value = await 'Nao encontrado';
-                //     console.log('error', error);
-                // },
                 complete: (data) => {
                     console.log('complete', data);
                 },
@@ -133,7 +138,7 @@
                         <br>
                         <input name="status" class="form-control" type="text" placeholder="Situação da Matrícula:">
                         <br>
-                        <input class="form-control is-valid" type="text" placeholder="First name" id="validationServer01" required="" value="Acesso Liberado"> </div>
+                        <button class="btn btn-primary" id="acesso">A ESPERA DE UM QRCODE</button></div>
                 </form>
             </div>
             <div class="col-md-6 p-2">
@@ -149,10 +154,10 @@
                         <tr class="bg-info">
                             <th id="dia" scope="row"></th>
                             <td>
-                                <em id="dataEntrada"></em>
+                                <em id="dataAnterior"></em>
                             </td>
                             <td>
-                                <em id="dataSaida"></em>
+                                <em id="dataEntrada"></em>
                             </td>
                         </tr>
                     </tbody>

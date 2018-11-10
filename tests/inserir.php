@@ -1,17 +1,18 @@
 <?php 
 require_once('../model/selecionarDados.php');
 
-$validaRA = $_POST["ra"];
+$validaRA = $_POST["id"];
 $tipo = gettype($validaRA);
-print $tipo;
-echo $validaRA;
+print $tipo + "\n";
+echo $validaRA + "\n";
 
-$RA = carregarRA($conexao);
-print_r($RA);
+$RA = carregarDados($conexao);
+print_r($RA) + "\n";
+
 
 foreach ($RA as $RAs) {
-    if (array_search($validaRA, $RAs)) {
-        echo " TEM\n";
+    if (in_array($validaRA, $RAs)) {
+        echo " -------------TEM----------";
         header('Location: form.html');
     } else { 
         echo " NÃO TEM\n";
@@ -20,7 +21,7 @@ foreach ($RA as $RAs) {
 die;
 
 foreach ($RA as $RAs) {
-    if (in_array($validaRA, $RAs)) {
+    if (array_search($validaRA, $RAs)) {
         echo " TEM\n";
         header('Location: form.html');
     } else { 

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    .man {
+        right: 100px;
+        width: 20px;
+        height: 20px;
+    }
+</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="js/instascan.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/theme.css" type="text/css"> </head>
+<body>
+    <script>
+        let scanner = new Instascan.Scanner({
+            video: document.getElementById('preview')
+        });
+        scanner.addListener('scan', (content) => {
+            var content = content;
+            var lista = content.split(",");
+
+            $.ajax({
+                type: "POST",
+                data: { id: lista[5] },
+                url: 'model/cadastrar.php',
+                success: function(data) {
+                    document.querySelector("[name='nome']").value = lista[0];
+                    document.querySelector("[name='ra']").value = lista[1];
+                    document.querySelector("[name='curso']").value = lista[2];
+                    document.querySelector("[name='cpf']").value = lista[3];
+                    document.querySelector("[name='email']").value = lista[4];
+                    document.querySelector("[name='status']").value = data.status;
+
+                    // let frequenciaEntrada = data.dataEntrada;
+                    // let isAnoMesDiaEntrada = frequenciaEntrada.split(' ');
+                    // let dataAnoMesDiaEntrada = isAnoMesDiaEntrada[0].split('-');
+                    // let dataEntrada = isAnoMesDiaEntrada[1];
+
+                    // let frequenciaSaida = data.dataSaida;
+                    // let isAnoMesDiaSaida = frequenciaSaida.split(' ');
+                    // let dataSaida = isAnoMesDiaSaida[1];
+
+                    let dia = data.dataAnterior.dia;
+                    let horarioAnteriro = data.dataAnterior.horario;
+                    let horarioEntrada = data.dataEntrada.horario;
+                    let imagem = data.imagem;
+
+                    $("#dia").html(dia);
+                    $("#dataAnterior").html(horarioAnteriro);
+                    $("#dataEntrada").html(horarioEntrada);
+                    $(document).ready(() => {
+                        $('#imagem').attr('src', imagem);
+                    });
+                    $("#acesso").html("ACESSO LIBERADO");
+                    $("#acesso").css('background-color', 'green');
+                    $("#acesso").css('border-color', 'green');
+
+                },
+                statusCode: {
+                    404: (error) => {
+                        alert("ALUNO NÃO ENCONTRADO");
+                        document.querySelector("[name='nome']").value = 'NÃO ENCONTRADO';
+                        document.querySelector("[name='ra']").value = 'NÃO ENCONTRADO';
+                        document.querySelector("[name='curso']").value = 'NÃO ENCONTRADO';
+                        document.querySelector("[name='cpf']").value = 'NÃO ENCONTRADO';
+                        document.querySelector("[name='email']").value = 'NÃO ENCONTRADO';
+                        document.querySelector("[name='status']").value = 'NÃO ENCONTRADO';
+                        $(document).ready(() => {
+                            $('#imagem').attr('src', 'img/notfound.png');
+                        });
+                        $("#acesso").html("ACESSO NEGADO");
+                        $("#acesso").css('background-color', 'red');
+                        $("#acesso").css('border-color', 'red');
+                        console.log('error', error);
+                    }
+                },
+                complete: (data) => {
+                    console.log('complete', data);
+                },
+                dataType: 'json'
+            });
+
+            function refresh() {
+                window.location.reload(true);
+            }
+            //setTimeout(refresh, 2000);
+            console.log(lista);
+            window.open(scanner.scanner, "_top");
+        });
+
+        Instascan.Camera.getCameras().then(cameras => {
+            if (cameras.length > 0) {
+                scanner.start(cameras[0]);
+            } else {
+                console.error("Não existe câmera no dispositivo!");
+            }
+        });
+    </script>
+    <nav class="navbar navbar-expand-md fixed-top mx-1 p-0 w-100 bg-info navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <i class="fa fa-fw fa-qrcode fa-5x"></i>
+            </a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fa d-inline fa-lg fa-wrench"></i>&nbsp;Suporte<br> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fa d-inline fa-lg fa-envelope-o"></i>&nbsp;Contatos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="py-5">
+        <img width="400" id="imagem" class="d-block rounded-circle img-fluid float-left m-4 p-1"> </div>
+        <div class="row">
+            <div class="col-md-6 p-3">
+                <form action="" method="post">
+                    <div class="form-group mb-1">
+                        <input name="nome" class="form-control" type="text" placeholder="Nome:">
+                        <br>
+                        <input name="ra" class="form-control" type="text" placeholder="RA:">
+                        <br>
+                        <input name="curso" class="form-control" type="text" placeholder="Curso:">
+                        <br>
+                        <input name="cpf" class="form-control" type="text" placeholder="CPF:">
+                        <br>
+                        <input name="email" class="form-control" type="text" placeholder="Email:">
+                        <br>
+                        <input name="status" class="form-control" type="text" placeholder="Situação da Matrícula:">
+                        <br>
+                        <button class="btn btn-primary" id="acesso">A ESPERA DE UM QRCODE</button></div>
+                </form>
+            </div>
+            <div class="col-md-6 p-2">
+                <table class="table table-hover table-striped table-bordered">
+                    <thead class="thead-inverse">
+                        <tr class="bg-light">
+                            <th scope="col">Dia</th>
+                            <th scope="col">Ultimo Horário</th>
+                            <th scope="col">Horário de entrada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-info">
+                            <th id="dia" scope="row"></th>
+                            <td>
+                                <em id="dataAnterior"></em>
+                            </td>
+                            <td>
+                                <em id="dataEntrada"></em>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <video id="preview" class="man"></video>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,171 +1,295 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-<style>
-    .man {
-        right: 100px;
-        width: 20px;
-        height: 20px;
-    }
-</style>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Hau Nguyen">
+    <meta name="keywords" content="au theme template">
+
+    <title>FATEC BARUERI</title>
+    <link rel="icon" href="#">
+
     <script type="text/javascript" src="js/instascan.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/theme.css" type="text/css"> </head>
-<body>
-    <script>
-        let scanner = new Instascan.Scanner({
-            video: document.getElementById('preview')
-        });
-        scanner.addListener('scan', (content) => {
-            var content = content;
-            var lista = content.split(",");
 
-            $.ajax({
-                type: "POST",
-                data: { id: lista[5] },
-                url: 'model/cadastrar.php',
-                success: function(data) {
-                    document.querySelector("[name='nome']").value = lista[0];
-                    document.querySelector("[name='ra']").value = lista[1];
-                    document.querySelector("[name='curso']").value = lista[2];
-                    document.querySelector("[name='cpf']").value = lista[3];
-                    document.querySelector("[name='email']").value = lista[4];
-                    document.querySelector("[name='status']").value = data.status;
+    <link href="assets/css2/font-face.css" rel="stylesheet" media="all">
+    <link href="assets/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="assets/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="assets/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
 
-                    // let frequenciaEntrada = data.dataEntrada;
-                    // let isAnoMesDiaEntrada = frequenciaEntrada.split(' ');
-                    // let dataAnoMesDiaEntrada = isAnoMesDiaEntrada[0].split('-');
-                    // let dataEntrada = isAnoMesDiaEntrada[1];
+    <link href="assets/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
 
-                    // let frequenciaSaida = data.dataSaida;
-                    // let isAnoMesDiaSaida = frequenciaSaida.split(' ');
-                    // let dataSaida = isAnoMesDiaSaida[1];
+    <link href="assets/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="assets/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="assets/vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="assets/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="assets/vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="assets/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="assets/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
 
-                    let dia = data.dataAnterior.dia;
-                    let horarioAnteriro = data.dataAnterior.horario;
-                    let horarioEntrada = data.dataEntrada.horario;
-                    let imagem = data.imagem;
+    <link href="assets/css2/theme.css" rel="stylesheet" media="all">
 
-                    $("#dia").html(dia);
-                    $("#dataAnterior").html(horarioAnteriro);
-                    $("#dataEntrada").html(horarioEntrada);
-                    $(document).ready(() => {
-                        $('#imagem').attr('src', imagem);
+</head>
+<body class="animsition">
+    <div class="page-wrapper">
+        <header class="header-mobile d-block d-lg-none">
+            <div class="header-mobile__bar">
+                <div class="container-fluid">
+                    <div class="header-mobile-inner">
+                        <img src="img/profe.png" alt="FATEC"/>
+                    </div>
+                </div>
+            </div>  
+        </header>
+        <div class="page-container">
+            <header class="header-desktop">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="header-wrap">
+                            <div class="header-button">
+                                <strong>FATEC BARUERI<strong>
+                                <i class="fa fa-refresh"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        <script>
+                let scanner = new Instascan.Scanner({
+                    video: document.getElementById('preview')
+                });
+                scanner.addListener('scan', (content) => {
+                    var content = content;
+                    var lista = content.split(",");
+
+                    $.ajax({
+                        type: "POST",
+                        data: { id: lista[5] },
+                        url: 'model/cadastrar.php',
+                        success: function(data) {
+                            document.querySelector("[name='nome']").value = lista[0];
+                            document.querySelector("[name='ra']").value = lista[1];
+                            document.querySelector("[name='curso']").value = lista[2];
+                            document.querySelector("[name='cpf']").value = lista[3];
+                            document.querySelector("[name='email']").value = lista[4];
+                            document.querySelector("[name='status']").value = data.status;
+
+                            // let frequenciaEntrada = data.dataEntrada;
+                            // let isAnoMesDiaEntrada = frequenciaEntrada.split(' ');
+                            // let dataAnoMesDiaEntrada = isAnoMesDiaEntrada[0].split('-');
+                            // let dataEntrada = isAnoMesDiaEntrada[1];
+
+                            // let frequenciaSaida = data.dataSaida;
+                            // let isAnoMesDiaSaida = frequenciaSaida.split(' ');
+                            // let dataSaida = isAnoMesDiaSaida[1];
+                            let nome = lista[0];
+                            let diaAnterior = data.dataAnterior.dia;
+                            let diaEntrada = data.dataEntrada.dia;
+                            let horarioAnterior = data.dataAnterior.horario;
+                            let horarioEntrada = data.dataEntrada.horario;
+                            let imagem = data.imagem;
+
+                            $("#nome").html(nome); 
+                            $("#diaAnterior").html(diaAnterior);
+                            $("#diaEntrada").html(diaEntrada);
+                            $("#dataAnterior").html(horarioAnterior);
+                            $("#dataEntrada").html(horarioEntrada);
+                            $(document).ready(() => {
+                                $('#imagem').attr('src', imagem);
+                            });
+                            $("#acesso").html("ACESSO LIBERADO");
+                            $("#acesso").css('background-color', 'green');
+                            $("#acesso").css('border-color', 'green');
+
+                        },
+                        statusCode: {
+                            404: (error) => {
+                                alert("ALUNO NÃO ENCONTRADO");
+                                document.querySelector("[name='nome']").value = 'NÃO ENCONTRADO';
+                                document.querySelector("[name='ra']").value = 'NÃO ENCONTRADO';
+                                document.querySelector("[name='curso']").value = 'NÃO ENCONTRADO';
+                                document.querySelector("[name='cpf']").value = 'NÃO ENCONTRADO';
+                                document.querySelector("[name='email']").value = 'NÃO ENCONTRADO';
+                                document.querySelector("[name='status']").value = 'NÃO ENCONTRADO';
+                                $(document).ready(() => {
+                                    $('#imagem').attr('src', 'img/notfound.png');
+                                });
+                                $("#acesso").html("ACESSO NEGADO");
+                                $("#acesso").css('background-color', 'red');
+                                $("#acesso").css('border-color', 'red');
+                                console.log('error', error);
+                            }
+                        },
+                        complete: (data) => {
+                            console.log('complete', data);
+                        },
+                        dataType: 'json'
                     });
-                    $("#acesso").html("ACESSO LIBERADO");
-                    $("#acesso").css('background-color', 'green');
-                    $("#acesso").css('border-color', 'green');
 
-                },
-                statusCode: {
-                    404: (error) => {
-                        alert("ALUNO NÃO ENCONTRADO");
-                        document.querySelector("[name='nome']").value = 'NÃO ENCONTRADO';
-                        document.querySelector("[name='ra']").value = 'NÃO ENCONTRADO';
-                        document.querySelector("[name='curso']").value = 'NÃO ENCONTRADO';
-                        document.querySelector("[name='cpf']").value = 'NÃO ENCONTRADO';
-                        document.querySelector("[name='email']").value = 'NÃO ENCONTRADO';
-                        document.querySelector("[name='status']").value = 'NÃO ENCONTRADO';
-                        $(document).ready(() => {
-                            $('#imagem').attr('src', 'img/notfound.png');
-                        });
-                        $("#acesso").html("ACESSO NEGADO");
-                        $("#acesso").css('background-color', 'red');
-                        $("#acesso").css('border-color', 'red');
-                        console.log('error', error);
+                    function refresh() {
+                        window.location.reload(true);
                     }
-                },
-                complete: (data) => {
-                    console.log('complete', data);
-                },
-                dataType: 'json'
-            });
+                    setTimeout(refresh, 3000);
+                    console.log(lista);
+                    window.open(scanner.scanner, "_top");
+                });
 
-            function refresh() {
-                window.location.reload(true);
-            }
-            //setTimeout(refresh, 2000);
-            console.log(lista);
-            window.open(scanner.scanner, "_top");
-        });
-
-        Instascan.Camera.getCameras().then(cameras => {
-            if (cameras.length > 0) {
-                scanner.start(cameras[0]);
-            } else {
-                console.error("Não existe câmera no dispositivo!");
-            }
-        });
-    </script>
-    <nav class="navbar navbar-expand-md fixed-top mx-1 p-0 w-100 bg-info navbar-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <i class="fa fa-fw fa-qrcode fa-5x"></i>
-            </a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa d-inline fa-lg fa-wrench"></i>&nbsp;Suporte<br> </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa d-inline fa-lg fa-envelope-o"></i>&nbsp;Contatos</a>
-                    </li>
-                </ul>
+                Instascan.Camera.getCameras().then(cameras => {
+                    if (cameras.length > 0) {
+                        scanner.start(cameras[0]);
+                    } else {
+                        console.error("Não existe câmera no dispositivo!");
+                    }
+                });
+            </script>
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong class="card-title mb-3">Imagem do aluno</strong>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mx-auto d-block">
+                                            <img class="rounded-circle mx-auto d-block" src="img/fundo.jpg" id="imagem" alt="aluno fatec">
+                                            <h5 class="text-sm-center mt-2 mb-1" id="nome">nome</h5>
+                                            <div class="location text-sm-center">
+                                                <i class="fa fa-map-marker"></i> FATEC BARUERI</div>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                    <strong>Dados do Aluno</strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <form action="" method="post" class="">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-user"></i>
+                                                    </div>
+                                                    <input type="text" id="username" name="nome" placeholder="Nome" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-asterisk"></i>
+                                                    </div>
+                                                    <input type="text" id="password" name="ra" placeholder="RA" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-pencil-square"></i>
+                                                    </div>
+                                                    <input type="text" id="email" name="curso" placeholder="Curso" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-credit-card"></i>
+                                                    </div>
+                                                    <input type="text" id="email" name="cpf" placeholder="CPF" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-envelope"></i>
+                                                    </div>
+                                                    <input type="text" id="email" name="email" placeholder="email" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-align-justify"></i>
+                                                    </div>
+                                                    <input type="text" id="email" name="status" placeholder="situação da matricula" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-actions form-group">
+                                                <button type="submit" id="acesso" class="btn btn-secondary">A espera de um QrCode</button>
+                                            </div>
+                                        </form>
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                            <div class="top-campaign">
+                            <hr>
+                                <h3 class="title-3 m-b-30">Ultimo horario</h3>
+                                <div class="table-responsive">
+                                    <table class="table table-top-campaign">
+                                        <tbody>
+                                        <th>Dia</th>
+                                        <th><th>
+                                        <th>Horario</th>
+                                            <tr>
+                                                <td id="diaAnterior"></td>
+                                                <td><td>
+                                                <td id="dataAnterior"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <hr>
+                                    <h3 class="title-3 m-b-30">Horario da entrada</h3>
+                                    <table class="table table-top-campaign">
+                                        <tbody>
+                                            <th>Dia</th>
+                                            <th></th>
+                                            <th>Horario</th>
+                                            <tr>
+                                                <td id="diaEntrada"></td>
+                                                <td></td>
+                                                <td id="dataEntrada"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <video id="preview" class="man"></video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="copyright">
+                        <p>GTI © 2018 - TUDO CERTO E NADA RESOLVIDO
+                        <a href="#"></a>.</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
-    <div class="py-5">
-        <img width="400" id="imagem" class="d-block rounded-circle img-fluid float-left m-4 p-1"> </div>
-        <div class="row">
-            <div class="col-md-6 p-3">
-                <form action="" method="post">
-                    <div class="form-group mb-1">
-                        <input name="nome" class="form-control" type="text" placeholder="Nome:">
-                        <br>
-                        <input name="ra" class="form-control" type="text" placeholder="RA:">
-                        <br>
-                        <input name="curso" class="form-control" type="text" placeholder="Curso:">
-                        <br>
-                        <input name="cpf" class="form-control" type="text" placeholder="CPF:">
-                        <br>
-                        <input name="email" class="form-control" type="text" placeholder="Email:">
-                        <br>
-                        <input name="status" class="form-control" type="text" placeholder="Situação da Matrícula:">
-                        <br>
-                        <button class="btn btn-primary" id="acesso">A ESPERA DE UM QRCODE</button></div>
-                </form>
-            </div>
-            <div class="col-md-6 p-2">
-                <table class="table table-hover table-striped table-bordered">
-                    <thead class="thead-inverse">
-                        <tr class="bg-light">
-                            <th scope="col">Dia</th>
-                            <th scope="col">Ultimo Horário</th>
-                            <th scope="col">Horário de entrada</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="bg-info">
-                            <th id="dia" scope="row"></th>
-                            <td>
-                                <em id="dataAnterior"></em>
-                            </td>
-                            <td>
-                                <em id="dataEntrada"></em>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <video id="preview" class="man"></video>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </div>
+</div>
+
+<script src="assets/vendor/jquery-3.2.1.min.js"></script>
+<script src="assets/vendor/bootstrap-4.1/popper.min.js"></script>
+<script src="assets/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+<script src="assets/vendor/slick/slick.min.js"></script>
+<script src="assets/vendor/wow/wow.min.js"></script>
+<script src="assets/vendor/animsition/animsition.min.js"></script>
+<script src="assets/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+<script src="assets/vendor/counter-up/jquery.waypoints.min.js"></script>
+<script src="assets/vendor/counter-up/jquery.counterup.min.js"></script>
+<script src="assets/vendor/circle-progress/circle-progress.min.js"></script>
+<script src="assets/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="assets/vendor/chartjs/Chart.bundle.min.js"></script>
+<script src="assets/vendor/select2/select2.min.js"></script>
+<script src="js/main.js"></script>
+
 </body>
 </html>

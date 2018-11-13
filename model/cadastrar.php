@@ -17,6 +17,7 @@ foreach ($dados as $ids) {
         $mes = $ids['mes'];
         $dia = $ids['dia'];
         $horario = $ids['horario'];
+        $imagem = $ids['foto'];
         if (inserirFrenquencia($conexao, $RA, $id)) {
             $data = carregarData($conexao, $id);
             foreach ($data as $datas) {
@@ -41,7 +42,7 @@ foreach ($dados as $ids) {
                     'dia' => $diaEntrada,
                     'horario' => $horarioEntrada,
                 ],
-                'imagem' => 'img/bruno.png',
+                'imagem' => $imagem,
             ];
             echo json_encode($response);
             http_response_code(200);

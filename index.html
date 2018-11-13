@@ -96,16 +96,15 @@
                             $("#dataAnterior").html(horarioAnterior);
                             $("#dataEntrada").html(horarioEntrada);
                             $(document).ready(() => {
-                                $('#imagem').attr('src', imagem);
+                                $('#imagem').attr('src', 'assets/imagens/' + imagem);
                             });
-                            $("#acesso").html("ACESSO LIBERADO");
+                            $("#acesso").html('ACESSO LIBERADO');
                             $("#acesso").css('background-color', 'green');
                             $("#acesso").css('border-color', 'green');
 
                         },
                         statusCode: {
                             404: (error) => {
-                                alert("ALUNO NÃO ENCONTRADO");
                                 document.querySelector("[name='nome']").value = 'NÃO ENCONTRADO';
                                 document.querySelector("[name='ra']").value = 'NÃO ENCONTRADO';
                                 document.querySelector("[name='curso']").value = 'NÃO ENCONTRADO';
@@ -115,9 +114,14 @@
                                 $(document).ready(() => {
                                     $('#imagem').attr('src', 'img/notfound.png');
                                 });
-                                $("#acesso").html("ACESSO NEGADO");
+                                $("#acesso").html('ACESSO NEGADO');
                                 $("#acesso").css('background-color', 'red');
                                 $("#acesso").css('border-color', 'red');
+                                $("#nome").html(nome);
+                                $("#diaAnterior").html('XX');
+                                $("#diaEntrada").html('XX');
+                                $("#dataAnterior").html('XXXXXX');
+                                $("#dataEntrada").html('XXXXXXX');
                                 console.log('error', error);
                             }
                         },
@@ -130,7 +134,7 @@
                     function refresh() {
                         window.location.reload(true);
                     }
-                    setTimeout(refresh, 3000);
+                    //setTimeout(refresh, 2000);
                     console.log(lista);
                     window.open(scanner.scanner, "_top");
                 });

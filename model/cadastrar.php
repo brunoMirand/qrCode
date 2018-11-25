@@ -1,57 +1,55 @@
 <?php
 require_once('selecionarDados.php');
 
+setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+$diaEntrada = strftime('%d');
+$mesEntrada = strftime('%m-%b');
+$anoEntrada = strftime('%G');
+$horarioEntrada = strftime('%T');
+
 if (empty($_POST['id']))
 {
     $id = NULL;
 } else {
     $id = $_POST['id'];
 }
-$dados = carregarDados($conexao);
+$dados = carregarDados($conexao, $id);
 
-foreach ($dados as $ids) {
-    if (in_array($id, $ids)) {
-        $RA = $ids['RA'];
-        $status = $ids['status'];
-        $ano = $ids['ano'];
-        $mes = $ids['mes'];
-        $dia = $ids['dia'];
-        $horario = $ids['horario'];
-        $imagem = $ids['foto'];
-        if (inserirFrenquencia($conexao, $RA, $id)) {
-            $data = carregarData($conexao, $id);
-            foreach ($data as $datas) {
-                $anoEntrada = $datas['anoEntrada'];
-                $mesEntrada = $datas['mesEntrada'];
-                $diaEntrada = $datas['diaEntrada'];
-                $horarioEntrada = $datas['horarioEntrada'];
-            }
-            $response = [
-                'id' => $id,
-                'ra' => $RA,
-                'status' => $status,
-                'dataAnterior' => [
-                    'ano' => $ano,
-                    'mes' => $mes,
-                    'dia' => $dia,
-                    'horario' => $horario,
-                ],
-                'dataEntrada' => [
-                    'ano' => $anoEntrada,
-                    'mes' => $mesEntrada,
-                    'dia' => $diaEntrada,
-                    'horario' => $horarioEntrada,
-                ],
-                'imagem' => $imagem,
-            ];
-            echo json_encode($response);
-            http_response_code(200);
-            die;
-        } else {
-             echo json_encode(['cadastrou' => false]);
-        }
+if ($dados != null) {
+    $RA = $dados['RA'];
+    $status = $dados['status'];
+    $ano = $dados['ano'];
+    $mes = $dados['mes'];
+    $dia = $dados['dia'];
+    $horario = $dados['horario'];
+    $imagem = $dados['foto'];
+    if (inserirFrenquencia($conexao, $RA, $id)) {
 
+        $response = [
+            'id' => $id,
+            'ra' => $RA,
+            'status' => $status,
+            'dataAnterior' => [
+                'ano' => $ano,
+                'mes' => $mes,
+                'dia' => $dia,
+                'horario' => $horario,
+            ],
+            'dataEntrada' => [
+                'ano' => $anoEntrada,
+                'mes' => $mesEntrada,
+                'dia' => $diaEntrada,
+                'horario' => $horarioEntrada,
+            ],
+            'imagem' => $imagem,
+        ];
+        echo json_encode($response);
+        http_response_code(200);
+        die;
+    } else {
+        echo json_encode(['cadastrou' => false]);
     }
+
 }
     $responseError = [
     'ra' => '404',

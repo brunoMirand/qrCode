@@ -1,14 +1,26 @@
 <?php 
 require_once('../model/selecionarDados.php');
 
-$validaRA = $_POST["id"];
-$tipo = gettype($validaRA);
-print $tipo + "\n";
-echo $validaRA + "\n";
+// $validaRA = $_POST["id"];
+// $tipo = gettype($validaRA);
+// print $tipo + "\n";
+// echo $validaRA + "\n";
 
-$RA = carregarDados($conexao);
-print_r($RA) + "\n";
-
+// $RA = carregarDados($conexao);
+// print_r($RA) + "\n";
+setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+$dia = strftime('%d-%A-');
+echo "\n";
+$mesEntrada = strftime('%m-%b');
+echo "\n";
+$anoEntrada = strftime('%G-');
+echo "\n";
+$horaEntrada = strftime('%R-');
+echo $horaEntrada;
+echo $anoEntrada;
+echo $dia;
+echo $mesEntrada;
+die;
 
 foreach ($RA as $RAs) {
     if (in_array($validaRA, $RAs)) {

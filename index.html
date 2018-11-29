@@ -98,9 +98,17 @@
                             $(document).ready(() => {
                                 $('#imagem').attr('src', 'assets/imagens/' + imagem);
                             });
-                            $("#acesso").html('ACESSO LIBERADO');
-                            $("#acesso").css('background-color', 'green');
-                            $("#acesso").css('border-color', 'green');
+                            if (data.status !== "Ativo") {
+                                $("#acesso").html('VERIFICAR ACESSO');
+                                $("#acesso").css('background-color', '#ffa500');
+                                $("#acesso").css('border-color', '#ffa500');
+                                $("#status").css('background-color', '#F4A460');
+                            } else {
+                                $("#acesso").html('ACESSO LIBERADO');
+                                $("#acesso").css('background-color', 'green');
+                                $("#acesso").css('border-color', 'green');
+                                $("#status").css('background-color', '#98FB98');
+                            }
 
                         },
                         statusCode: {
@@ -134,7 +142,7 @@
                     function refresh() {
                         window.location.reload(true);
                     }
-                    //setTimeout(refresh, 2000);
+                    setTimeout(refresh, 2000);
                     console.log(lista);
                     window.open(scanner.scanner, "_top");
                 });
@@ -219,7 +227,7 @@
                                                     <div class="input-group-addon">
                                                         <i class="fa fa-align-justify"></i>
                                                     </div>
-                                                    <input type="text" id="email" name="status" placeholder="situação da matricula" class="form-control">
+                                                    <input type="text" id="status" name="status" placeholder="situação da matricula" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-actions form-group">
